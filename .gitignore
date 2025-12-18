@@ -1,0 +1,61 @@
+# OS
+.DS_Store
+
+# Unity generated
+Library/
+Temp/
+Logs/
+Obj/
+Build/
+Builds/
+UserSettings/
+
+# IDE
+.vscode/
+.idea/
+
+# VS / Rider
+*.csproj
+*.sln
+*.slnx
+*.user
+*.pidb
+*.booproj
+
+# Unity Packages cache
+Packages/packages-lock.json
+
+# Builds
+*.apk
+*_BurstDebugInformation_DoNotShip/
+# OS
+.DS_Store
+
+# Unity generated
+Library/
+Temp/
+Logs/
+Obj/
+Build/
+Builds/
+UserSettings/
+
+# IDE
+.vscode/
+.idea/
+
+# VS / Rider
+*.csproj
+*.sln
+*.slnx
+*.user
+*.pidb
+*.booproj
+
+# Unity Packages cache
+Packages/packages-lock.json
+
+# Builds
+*.apk
+*_BurstDebugInformation_DoNotShip/
+
