@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ExperimentManager : MonoBehaviour
 {
@@ -10,17 +11,39 @@ public class ExperimentManager : MonoBehaviour
 
     private List<RoomController> randomizedRooms;
     private int currentIndex = -1;
+
     public GameObject stopButton;
     public GameObject nextRoomButton;
 
+
+    public Canvas endMessageCanvas;
+    public TextMeshProUGUI endMessageText;
+
+
+    public TextMeshProUGUI roomNameText;
+
     void Start()
     {
+
         randomizedRooms = new List<RoomController>(experimentalRooms);
         Shuffle(randomizedRooms);
 
+
         EnterTestingRoom();
+
         stopButton.SetActive(true);
         nextRoomButton.SetActive(false);
+
+
+        if (endMessageCanvas != null)
+            endMessageCanvas.gameObject.SetActive(false);
+
+  
+        if (roomNameText != null)
+        {
+            roomNameText.text = testingRoom.roomName;
+            roomNameText.gameObject.SetActive(true);
+        }
     }
 
     void Shuffle(List<RoomController> list)
@@ -39,6 +62,7 @@ public class ExperimentManager : MonoBehaviour
 
     public void GoToNextRoom()
     {
+        // Desativa room atual
         if (currentIndex == -1)
         {
             testingRoom.Deactivate();
@@ -50,6 +74,7 @@ public class ExperimentManager : MonoBehaviour
 
         currentIndex++;
 
+
         if (currentIndex < randomizedRooms.Count)
         {
             randomizedRooms[currentIndex].Activate(xrOrigin);
@@ -57,9 +82,38 @@ public class ExperimentManager : MonoBehaviour
             stopButton.SetActive(true);
             nextRoomButton.SetActive(false);
 
+
+            if (roomNameText != null)
+            {
+                roomNameText.text = randomizedRooms[currentIndex].roomName;
+                roomNameText.gameObject.SetActive(true);
+            }
+
+            Debug.Log("Going to room: " + randomizedRooms[currentIndex].roomName);
         }
         else
         {
+ 
+            if (randomizedRooms.Count > 0)
+                randomizedRooms[randomizedRooms.Count - 1].Deactivate();
+
+
+            testingRoom.Activate(xrOrigin);
+
+    
+            if (roomNameText != null)
+                roomNameText.gameObject.SetActive(false);
+
+
+            if (endMessageCanvas != null && endMessageText != null)
+            {
+                endMessageCanvas.gameObject.SetActive(true);
+                endMessageText.text = "The end of the experiment! Thank you!";
+            }
+
+            stopButton.SetActive(false);
+            nextRoomButton.SetActive(false);
+
             Debug.Log("Experiment finished");
         }
     }
@@ -72,7 +126,7 @@ public class ExperimentManager : MonoBehaviour
         return "End";
     }
 
-        public void StopRoom()
+    public void StopRoom()
     {
         RoomController currentRoom;
 
@@ -86,8 +140,4 @@ public class ExperimentManager : MonoBehaviour
         stopButton.SetActive(false);
         nextRoomButton.SetActive(true);
     }
-
-
-
 }
-

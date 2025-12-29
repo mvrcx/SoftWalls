@@ -14,13 +14,13 @@ public class RoomController : MonoBehaviour
         xrOrigin.rotation = spawnPoint.rotation;
 
         if (recorder != null)
-            recorder.roomName = roomName;   // optional
+            recorder.roomName = roomName;  
     }
 
     public void Deactivate()
     {
         gameObject.SetActive(false);
-        // CSV wird automatisch bei OnDestroy / Pause gespeichert
+        
     }
 
     public void StopRoom()
