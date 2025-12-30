@@ -1,14 +1,14 @@
-using TMPro;
 using UnityEngine;
 
 public class UIFlowController : MonoBehaviour
 {
     public GameObject stopButton;
     public GameObject nextButton;
-    public TextMeshProUGUI nextLabel;
 
     public ExperimentManager experimentManager;
-    public GameObject locomotionSystem;
+
+    // Todos os scripts de movimento que devem ser bloqueados ao clicar Stop
+    public MonoBehaviour[] movementScripts;
 
     void Start()
     {
@@ -18,19 +18,31 @@ public class UIFlowController : MonoBehaviour
 
     public void OnStopClicked()
     {
-        locomotionSystem.SetActive(false);
-        stopButton.SetActive(false);
+        // Bloqueia movimento
+        foreach (var script in movementScripts)
+        {
+            if (script != null)
+                script.enabled = false;
+        }
 
-        nextLabel.text = "Next: " + experimentManager.GetNextRoomName();
+        stopButton.SetActive(false);
         nextButton.SetActive(true);
     }
 
     public void OnNextClicked()
     {
-        nextButton.SetActive(false);
-        locomotionSystem.SetActive(true);
+        // Libera movimento
+        foreach (var script in movementScripts)
+        {
+            if (script != null)
+                script.enabled = true;
+        }
 
-        experimentManager.GoToNextRoom();
+        nextButton.SetActive(false);
+
+        if (experimentManager != null)
+            experimentManager.GoToNextRoom();
+
         stopButton.SetActive(true);
     }
 }
