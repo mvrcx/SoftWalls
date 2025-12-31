@@ -4,6 +4,8 @@
 # Unity generated
 Library/
 Temp/
+utmp/
+.utmp/
 Logs/
 Obj/
 Build/
