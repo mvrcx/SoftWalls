@@ -20,7 +20,6 @@ public class WallProximityVisual : MonoBehaviour
         if (playerCamera == null && Camera.main != null)
             playerCamera = Camera.main.transform;
 
-        // Ensure emission is enabled
         mat.EnableKeyword("_EMISSION");
     }
 
@@ -28,7 +27,6 @@ public class WallProximityVisual : MonoBehaviour
     {
         if (playerCamera == null) return;
 
-        // Abstand zur Wandebene (robust, wie bei deiner Soft Wall)
         Vector3 wallNormal = transform.forward;
         float distance = Mathf.Abs(
             Vector3.Dot(
@@ -39,11 +37,9 @@ public class WallProximityVisual : MonoBehaviour
 
         float proximity = Mathf.Clamp01(1f - distance / maxProximityDistance);
 
-        // Farbe interpolieren
         Color currentColor = Color.Lerp(farColor, nearColor, proximity);
         mat.color = currentColor;
 
-        // Emission verstärken bei Nähe
         mat.SetColor("_EmissionColor", currentColor * (proximity * maxEmission));
     }
 }

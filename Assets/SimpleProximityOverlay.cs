@@ -23,12 +23,12 @@ public class SimpleProximityOverlay : MonoBehaviour
 
         float proximity = Mathf.Clamp01(1f - distance / maxDistance);
 
-        // Alpha
+    
         Color c = mat.color;
-        c.a = proximity * 0.6f; // nie komplett deckend
+        c.a = proximity * 0.6f;
         mat.color = c;
 
-        // leichte „Kompression“
+
         float scale = Mathf.Lerp(1f, 1.05f, proximity);
         transform.localScale = new Vector3(scale, scale, 1f);
     }

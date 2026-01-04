@@ -9,11 +9,11 @@ public class ObjectiveMetricsLogger : MonoBehaviour
     public Transform player;
 
     [Header("Room Info")]
-    public GameObject room; // room atual
+    public GameObject room;
     public string roomName;
 
     [Header("Parameters")]
-    public float approachDistance = 1.0f; // distância <1m para primeira abordagem
+    public float approachDistance = 1.0f;
 
     private List<Collider> walls = new List<Collider>();
     private float minDistance = float.MaxValue;
@@ -26,7 +26,7 @@ public class ObjectiveMetricsLogger : MonoBehaviour
     private bool recording = false;
     private string participantId;
 
-    // Inicializa a room atual
+
     public void SetRoom(GameObject newRoom, string newRoomName)
     {
         room = newRoom;

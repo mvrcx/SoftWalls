@@ -15,11 +15,12 @@ public class ExperimentManager : MonoBehaviour
     public List<RoomController> experimentalRooms;
 
     [Header("Logger")]
-    public ObjectiveMetricsLogger logger; // apenas um logger compartilhado
+    public ObjectiveMetricsLogger logger;
 
     private List<RoomController> randomizedRooms;
     private int currentIndex = -1;
-    private bool experimentFinished = false;
+
+    public bool experimentFinished { get; private set; } = false;
 
     [Header("UI")]
     public GameObject stopButton;
@@ -35,13 +36,19 @@ public class ExperimentManager : MonoBehaviour
         randomizedRooms = new List<RoomController>(experimentalRooms);
         Shuffle(randomizedRooms);
 
+        experimentFinished = false;
+        currentIndex = -1;
+
         EnterTestingRoom();
 
         stopButton.SetActive(true);
         nextRoomButton.SetActive(false);
 
         if (roomNameText != null)
+        {
             roomNameText.text = testingRoom.roomName;
+            roomNameText.gameObject.SetActive(true);
+        }
 
         if (endMessageCanvas != null)
             endMessageCanvas.gameObject.SetActive(false);
@@ -66,15 +73,13 @@ public class ExperimentManager : MonoBehaviour
         if (experimentFinished)
             return;
 
-        // Para o logger do quarto atual
         if (currentIndex >= 0 && currentIndex < randomizedRooms.Count)
-            logger.StopRecordingAndSave();
+            logger?.StopRecordingAndSave();
 
-        // Desativa o quarto atual
-        if (currentIndex >= 0)
-            randomizedRooms[currentIndex].Deactivate();
-        else
+        if (currentIndex == -1)
             testingRoom.Deactivate();
+        else if (currentIndex < randomizedRooms.Count)
+            randomizedRooms[currentIndex].Deactivate();
 
         currentIndex++;
 
@@ -83,7 +88,7 @@ public class ExperimentManager : MonoBehaviour
             RoomController room = randomizedRooms[currentIndex];
             room.Activate(xrOrigin);
 
-            if (!string.IsNullOrEmpty(participantId) && logger != null)
+            if (logger != null && !string.IsNullOrEmpty(participantId))
             {
                 logger.SetRoom(room.gameObject, room.roomName);
                 logger.StartRecording(participantId);
@@ -93,13 +98,15 @@ public class ExperimentManager : MonoBehaviour
             nextRoomButton.SetActive(false);
 
             if (roomNameText != null)
+            {
                 roomNameText.text = room.roomName;
+                roomNameText.gameObject.SetActive(true);
+            }
 
             Debug.Log("Going to room: " + room.roomName);
         }
         else
         {
-            // Fim do experimento
             experimentFinished = true;
 
             testingRoom.Activate(xrOrigin);
@@ -125,22 +132,12 @@ public class ExperimentManager : MonoBehaviour
         if (experimentFinished)
             return;
 
-        // Se não houver quartos para Stop
         if (currentIndex < 0 || currentIndex >= randomizedRooms.Count)
             return;
 
-        logger.StopRecordingAndSave();
+        logger?.StopRecordingAndSave();
 
-        // Se for último quarto
-        if (currentIndex == randomizedRooms.Count - 1)
-        {
-            stopButton.SetActive(false);
-            nextRoomButton.SetActive(false);
-        }
-        else
-        {
-            stopButton.SetActive(false);
-            nextRoomButton.SetActive(true);
-        }
+        stopButton.SetActive(false);
+        nextRoomButton.SetActive(true);
     }
 }

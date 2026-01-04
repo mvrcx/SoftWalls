@@ -38,7 +38,6 @@ public class SpotlightWallGenerator : MonoBehaviour
         GenerateWall();
     }
 
-    // This is your recovered code from the original file
     void GenerateWall()
     {
         int vertCountX = widthSegments + 1;
@@ -81,7 +80,7 @@ public class SpotlightWallGenerator : MonoBehaviour
         mesh.uv = uvs;
         mesh.triangles = triangles;
         mesh.RecalculateNormals();
-        mesh.MarkDynamic(); // Critical for per-frame color updates
+        mesh.MarkDynamic();
     }
 
     void Update()
@@ -99,7 +98,6 @@ public class SpotlightWallGenerator : MonoBehaviour
 
         for (int i = 0; i < vertices.Length; i++)
         {
-            // Calculate distance between THIS vertex and the player
             Vector3 worldVtx = transform.TransformPoint(vertices[i]);
             float distToPlayer = Vector3.Distance(worldVtx, playerCamera.position);
 
@@ -108,7 +106,7 @@ public class SpotlightWallGenerator : MonoBehaviour
             float alpha = 1f - Mathf.Clamp01(distToPlayer / currentRadius);
             alpha *= 1.5f; // Boosts the opacity
             alpha = Mathf.Clamp01(alpha);
-            // Apply transparency (White color with custom Alpha)
+
             colors[i] = new Color(1, 1, 1, alpha);
         }
 

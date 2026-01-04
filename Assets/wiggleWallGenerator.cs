@@ -18,12 +18,11 @@ public class wiggleWallGenerator : MonoBehaviour
     public float maxProximityDistance = 5f;
     public float proximityFalloff = 1f;
 
-    // --- NEW: Transparency Settings ---
     [Header("Transparency Settings")]
     [Range(0f, 1f)]
-    public float minOpacity = 0.2f; // How see-through it is when far away
+    public float minOpacity = 0.2f;
     [Range(0f, 1f)]
-    public float maxOpacity = 1.0f; // How solid it is when close
+    public float maxOpacity = 1.0f;
     
     [Header("Wiggle Settings")]
     public float maxWiggleStrength = 0.5f; 
@@ -36,7 +35,6 @@ public class wiggleWallGenerator : MonoBehaviour
     private Vector3[] workingVertices;
     private float currentWiggleStrength; 
 
-    // Cache the material property ID for better performance
     private static readonly int ColorProperty = Shader.PropertyToID("_BaseColor");
 
     void Awake()
@@ -67,10 +65,10 @@ public class wiggleWallGenerator : MonoBehaviour
         if (playerCamera == null && Camera.main != null)
             playerCamera = Camera.main.transform;
 
-        // Ensure material exists
+    
         if (meshRenderer.sharedMaterial == null)
         {
-            // Note: For transparency to work, the shader must be set to "Transparent" mode in the Inspector
+
             meshRenderer.sharedMaterial = new Material(Shader.Find("Universal Render Pipeline/Lit"));
         }
     }
@@ -145,7 +143,6 @@ public class wiggleWallGenerator : MonoBehaviour
         // 2. Update Wiggle Strength
         currentWiggleStrength = maxWiggleStrength * proximityValue;
 
-        // --- NEW: Update Transparency ---
         UpdateOpacity(proximityValue);
 
         // 3. Vertex Deformation (Same as before)
@@ -167,11 +164,8 @@ public class wiggleWallGenerator : MonoBehaviour
     {
         if (meshRenderer == null) return;
 
-        // Calculate alpha based on proximity
         float targetAlpha = Mathf.Lerp(minOpacity, maxOpacity, proximity);
 
-        // Get the current color, update alpha, and push back to material
-        // We use .material (not .sharedMaterial) to ensure we only change THIS instance
         Color color = meshRenderer.material.GetColor(ColorProperty);
         color.a = targetAlpha;
         meshRenderer.material.SetColor(ColorProperty, color);

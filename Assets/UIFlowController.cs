@@ -6,8 +6,6 @@ public class UIFlowController : MonoBehaviour
     public GameObject nextButton;
 
     public ExperimentManager experimentManager;
-
-    // Todos os scripts de movimento que devem ser bloqueados ao clicar Stop
     public MonoBehaviour[] movementScripts;
 
     void Start()
@@ -18,7 +16,9 @@ public class UIFlowController : MonoBehaviour
 
     public void OnStopClicked()
     {
-        // Bloqueia movimento
+        if (experimentManager != null && experimentManager.experimentFinished)
+            return;
+
         foreach (var script in movementScripts)
         {
             if (script != null)
@@ -31,7 +31,9 @@ public class UIFlowController : MonoBehaviour
 
     public void OnNextClicked()
     {
-        // Libera movimento
+        if (experimentManager != null && experimentManager.experimentFinished)
+            return;
+
         foreach (var script in movementScripts)
         {
             if (script != null)
@@ -40,9 +42,9 @@ public class UIFlowController : MonoBehaviour
 
         nextButton.SetActive(false);
 
-        if (experimentManager != null)
-            experimentManager.GoToNextRoom();
+        experimentManager.GoToNextRoom();
 
-        stopButton.SetActive(true);
+        if (!experimentManager.experimentFinished)
+            stopButton.SetActive(true);
     }
 }
