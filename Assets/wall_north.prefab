@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 583402899643838977}
   - component: {fileID: 2112019363599548711}
-  - component: {fileID: 1982186733892385054}
   - component: {fileID: 9133291591286509190}
   - component: {fileID: 7645984385631733597}
   m_Layer: 0
@@ -29,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1541713389310511500}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 4}
+  m_LocalPosition: {x: 0.179, y: 1.5, z: 4.074}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -55,8 +54,6 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -78,33 +75,10 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1982186733892385054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1541713389310511500}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89645f3c4c61f4e9fb7b7850512c751b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  width: 8
-  height: 3
-  widthSegments: 50
-  heightSegments: 50
-  playerCamera: {fileID: 0}
-  maxProximityDistance: 2
-  proximityFalloff: 0.5
-  maxWiggleStrength: 0.5
-  wiggleSpeed: 1
-  waveScale: 3
 --- !u!33 &9133291591286509190
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -132,5 +106,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 10, y: 3, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
