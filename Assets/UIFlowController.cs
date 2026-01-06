@@ -8,6 +8,7 @@ public class UIFlowController : MonoBehaviour
     public ExperimentManager experimentManager;
     public MonoBehaviour[] movementScripts;
 
+
     void Start()
     {
         stopButton.SetActive(true);
@@ -28,23 +29,22 @@ public class UIFlowController : MonoBehaviour
         stopButton.SetActive(false);
         nextButton.SetActive(true);
     }
+public void OnNextClicked()
+{
+    if (experimentManager != null && experimentManager.experimentFinished)
+        return;
 
-    public void OnNextClicked()
+    foreach (var script in movementScripts)
     {
-        if (experimentManager != null && experimentManager.experimentFinished)
-            return;
-
-        foreach (var script in movementScripts)
-        {
-            if (script != null)
-                script.enabled = true;
-        }
-
-        nextButton.SetActive(false);
-
-        experimentManager.GoToNextRoom();
-
-        if (!experimentManager.experimentFinished)
-            stopButton.SetActive(true);
+        if (script != null)
+            script.enabled = true;
     }
+
+    nextButton.SetActive(false);
+
+    experimentManager.GoToNextRoom();
+
+    if (!experimentManager.experimentFinished)
+        stopButton.SetActive(true);
+}
 }
