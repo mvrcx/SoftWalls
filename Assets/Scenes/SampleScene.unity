@@ -682,8 +682,6 @@ MonoBehaviour:
   player: {fileID: 549838280}
   room: {fileID: 0}
   roomName: 
-  collisionCooldown: 0.1
-  showDebugInfo: 1
 --- !u!4 &211547741
 Transform:
   m_ObjectHideFlags: 0
@@ -867,7 +865,8 @@ Material:
     (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
     (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
     (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
-    (Instance)
+    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
+    (Instance) (Instance) (Instance)
   m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -6836,7 +6835,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a9eb4dce0cad4100ab02814d924ed25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  participantId: 21
+  participantId: 28
   xrOrigin: {fileID: 549838280}
   testingRoom: {fileID: 985866599}
   experimentalRooms:
@@ -9250,7 +9249,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4295892835532738850, guid: 77e7c27b2c5525e4aa8cc9f99d654486, type: 3}
       propertyPath: m_Radius
-      value: 0.3
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4750419573833148750, guid: 77e7c27b2c5525e4aa8cc9f99d654486, type: 3}
       propertyPath: m_AnchorMax.y
